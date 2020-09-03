@@ -1,0 +1,1 @@
+# myalomatika-k8s-config
