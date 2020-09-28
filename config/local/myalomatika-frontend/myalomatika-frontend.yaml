@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myalomatika-frontend-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: myalomatika-frontend-app
+  template:
+    metadata:
+      labels:
+        app: myalomatika-frontend-app
+    spec:
+      containers:
+        - name: myalomatika-frontend-app
+          image: cryfish/myalomatika-frontend
+          ports:
+          - containerPort: 80
+            protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: myalomatika-frontend-svc
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: myalomatika-frontend-app
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 32001
+      protocol: TCP
